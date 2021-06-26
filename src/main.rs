@@ -1,11 +1,13 @@
 use std::io;
 use rand::Rng;
 
+#[derive(Debug)]
 enum State {
 	Closed,
 	Open
 }
 
+#[derive(Debug)]
 struct Door {
 	state: State,
 	has_prize: bool,
@@ -65,7 +67,8 @@ fn main() {
 	}
 
 	if choice == 1 {
-		
+		change_door(&mut doors);
+		println!("{:?}", doors);
 	}
 }
 
