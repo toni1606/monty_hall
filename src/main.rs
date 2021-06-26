@@ -63,6 +63,10 @@ fn main() {
 		}
 		println!("Invalid number entered!");
 	}
+
+	if choice == 1 {
+		
+	}
 }
 
 fn read_input(data: &mut usize) {
@@ -96,6 +100,16 @@ fn monty_open_door(doors: &mut [Door]) {
 		if !doors[index].is_open() && !doors[index].has_prize && !doors[index].is_selected {
 			doors[index].open();
 			break;
+		}
+	}
+}
+
+fn change_door(doors: &mut [Door]) {
+	for door in doors {
+		if door.is_selected {
+			door.is_selected = false;
+		} else if !door.is_selected && !door.is_open() {
+			door.is_selected = true;
 		}
 	}
 }
