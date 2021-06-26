@@ -8,14 +8,16 @@ enum State {
 
 struct Door {
 	state: State,
-	has_prize: bool
+	has_prize: bool,
+	is_selected: bool
 }
 
 impl Door {
 	fn new() -> Door {
 		Door {
 			state: State::Closed,
-			has_prize: false 
+			has_prize: false,
+			is_selected: false
 		}
 	}
 	fn is_open(&self) -> bool {
@@ -51,7 +53,15 @@ fn main() {
 	// Open 1 door
 	monty_open_door(&mut doors);
 
-
+	loop {
+		println!("Do you want to change the door? (yes = 1, no = 0)");
+		read_input(&mut choice);
+		
+		if check_if_valid(&choice, &[0, 1]) {
+			break;
+		}
+		println!("Invalid number entered!");
+	}
 }
 
 fn read_input(data: &mut usize) {
