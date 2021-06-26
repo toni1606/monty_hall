@@ -49,6 +49,7 @@ fn main() {
 		}
 		println!("Invalid number entered!");
 	}
+	doors[choice - 1].is_selected = true;
 
 	// Open 1 door
 	monty_open_door(&mut doors);
@@ -92,7 +93,7 @@ fn monty_open_door(doors: &mut [Door]) {
 	loop {
 		let index = select_door(doors.len());
 		
-		if !doors[index].is_open() && !doors[index].has_prize {
+		if !doors[index].is_open() && !doors[index].has_prize && !doors[index].is_selected {
 			doors[index].open();
 			break;
 		}
