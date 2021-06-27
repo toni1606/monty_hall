@@ -14,7 +14,7 @@ struct Door {
 
 struct Contestant {
 	choice: usize,
-	does_switch: bool
+	changes_door: bool
 }
 
 impl Door {
@@ -40,14 +40,14 @@ impl Contestant {
 	fn new_alice() -> Contestant {
 		Contestant {
 			choice: 1,
-			does_switch: false
+			changes_door: false
 		}
 	}
 
 	fn new_bob() -> Contestant {
 		Contestant {
 			choice: 1,
-			does_switch: true
+			changes_door: true
 		}
 	}
 }
@@ -61,7 +61,9 @@ fn main() {
 
 		if check_if_valid(&choice, &[0, 1]) {
 			if choice == 0 {
-				simulation()
+				let sim = simulation(&[Contestant::new_alice(), Contestant::new_bob()], &1000);
+
+				println!("Alice: {}\nBob: {}", sim[0], sim[1]);
 			} else {
 				game();
 			}
@@ -172,8 +174,36 @@ fn game() {
 	}
 }
 
-fn simulation(contestants: &[Contestant], simulate_contestant: &usize) {
-	for i in 0..*simulate_contestant {
+fn simulation(contestants: &[Contestant], simulate_contestant: &usize) -> Box<[f64]> {
+	let mut simulation_output = vec![0.0f64; contestants.len()];
+	
+	let mut i = 0;
+	for contestant in contestants {
+		let mut won: usize = 0;
+		for _i in 0..*simulate_contestant {
+			let mut doors: [Door; 3] = [Door::new(), Door::new(), Door::new()];
 
+			// put the prize in one door
+			doors[select_door(doors.len())].has_prize = true;
+
+			// Let the user choose their door
+			doors[contestant.choice - 1].is_selected = true;
+
+			// Open 1 door
+			monty_open_door(&mut doors);
+
+			// Change door if contestant chooses to change
+			if contestant.changes_door {
+				change_door(&mut doors);
+			}
+
+			if chek_if_won(&mut doors) {
+				won += 1;
+			}
+		}
+		simulation_output[i] = won as f64 / *simulate_contestant as f64;
+		i += 1;
 	}
+
+	simulation_output.into_boxed_slice()
 }
