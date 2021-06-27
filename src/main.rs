@@ -63,7 +63,7 @@ fn main() {
 			if choice == 0 {
 				let sim = simulation(&[Contestant::new_alice(), Contestant::new_bob()], &1000);
 
-				println!("Alice: {}\nBob: {}", sim[0], sim[1]);
+				println!("Alice: {:.3}%\nBob: {:.3}%", sim[0] * 100f64, sim[1] * 100f64);
 			} else {
 				game();
 			}
