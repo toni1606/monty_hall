@@ -32,47 +32,7 @@ impl Door {
 }
 
 fn main() {
-	let mut doors: [Door; 3] = [Door::new(), Door::new(), Door::new()];
-	
-	let mut choice: usize = 0;
-	
-	// put the prize in one door
-	doors[select_door(doors.len())].has_prize = true;
-
-	// Let the user choose their door
-	loop {
-		println!("Which door do you choose? (1, 2, 3)");
-		read_input(&mut choice);
-		
-		if check_if_valid(&choice, &[1, 2, 3]) {
-			break;
-		}
-		println!("Invalid number entered!");
-	}
-	doors[choice - 1].is_selected = true;
-
-	// Open 1 door
-	monty_open_door(&mut doors);
-
-	loop {
-		println!("Do you want to change the door? (yes = 1, no = 0)");
-		read_input(&mut choice);
-		
-		if check_if_valid(&choice, &[0, 1]) {
-			break;
-		}
-		println!("Invalid number entered!");
-	}
-
-	if choice == 1 {
-		change_door(&mut doors);
-	}
-
-	if chek_if_won(&mut doors) {
-		println!("Congrats! You won the prize!!! 🎉");
-	} else {
-		println!("Sorry, you lost! 😢")
-	}
+	game();
 }
 
 fn read_input(data: &mut usize) {
@@ -128,4 +88,48 @@ fn chek_if_won(doors: &mut [Door]) -> bool {
 		}
 	}
 	out
+}
+
+fn game() {
+	let mut doors: [Door; 3] = [Door::new(), Door::new(), Door::new()];
+	
+	let mut choice: usize = 0;
+	
+	// put the prize in one door
+	doors[select_door(doors.len())].has_prize = true;
+
+	// Let the user choose their door
+	loop {
+		println!("Which door do you choose? (1, 2, 3)");
+		read_input(&mut choice);
+		
+		if check_if_valid(&choice, &[1, 2, 3]) {
+			break;
+		}
+		println!("Invalid number entered!");
+	}
+	doors[choice - 1].is_selected = true;
+
+	// Open 1 door
+	monty_open_door(&mut doors);
+
+	loop {
+		println!("Do you want to change the door? (yes = 1, no = 0)");
+		read_input(&mut choice);
+		
+		if check_if_valid(&choice, &[0, 1]) {
+			break;
+		}
+		println!("Invalid number entered!");
+	}
+
+	if choice == 1 {
+		change_door(&mut doors);
+	}
+
+	if chek_if_won(&mut doors) {
+		println!("Congrats! You won the prize!!! 🎉");
+	} else {
+		println!("Sorry, you lost! 😢")
+	}
 }
