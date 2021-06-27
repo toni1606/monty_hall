@@ -12,6 +12,11 @@ struct Door {
 	is_selected: bool
 }
 
+struct Contestant {
+	choice: usize,
+	does_switch: bool
+}
+
 impl Door {
 	fn new() -> Door {
 		Door {
@@ -28,6 +33,22 @@ impl Door {
 	}
 	fn open(&mut self) {
 		self.state = State::Open;
+	}
+}
+
+impl Contestant {
+	fn new_alice() -> Contestant {
+		Contestant {
+			choice: 1,
+			does_switch: false
+		}
+	}
+
+	fn new_bob() -> Contestant {
+		Contestant {
+			choice: 1,
+			does_switch: true
+		}
 	}
 }
 
@@ -151,6 +172,8 @@ fn game() {
 	}
 }
 
-fn simulation() {
+fn simulation(contestants: &[Contestant], simulate_contestant: &usize) {
+	for i in 0..*simulate_contestant {
 
+	}
 }
