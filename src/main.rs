@@ -32,7 +32,24 @@ impl Door {
 }
 
 fn main() {
-	game();
+	loop {
+		let mut choice: usize = 0;
+		println!("Do you want to run the simulation or play the game? (sim = 0, play = 1)");
+		
+		read_input(&mut choice);
+
+		if check_if_valid(&choice, &[0, 1]) {
+			if choice == 0 {
+				simulation()
+			} else {
+				game();
+			}
+
+			break;
+		}
+
+		println!("Invalid number entered! Retry...");
+	}
 }
 
 fn read_input(data: &mut usize) {
@@ -132,4 +149,8 @@ fn game() {
 	} else {
 		println!("Sorry, you lost! 😢")
 	}
+}
+
+fn simulation() {
+
 }
