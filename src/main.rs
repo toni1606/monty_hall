@@ -1,7 +1,6 @@
 use std::io;
 use rand::Rng;
 
-use monty_hall::game::state::State;
 use monty_hall::game::door::Door;
 use monty_hall::game::contestant::Contestant;
 
@@ -56,7 +55,7 @@ fn monty_open_door(doors: &mut [Door]) {
 	loop {
 		let index = select_door(doors.len());
 		
-		if !doors[index].is_open() && !doors[index].has_prize && !doors[index].is_selected {
+		if !doors[index].is_open() && !doors[index].get_has_prize() && !doors[index].get_is_selected() {
 			doors[index].open();
 			break;
 		}
@@ -89,7 +88,7 @@ fn game() {
 	let mut choice: usize = 0;
 	
 	// put the prize in one door
-	doors[select_door(doors.len())].has_prize = true;
+	doors[select_door(doors.len())].set_has_prize(true);
 
 	// Let the user choose their door
 	loop {
@@ -101,7 +100,7 @@ fn game() {
 		}
 		println!("Invalid number entered!");
 	}
-	doors[choice - 1].is_selected = true;
+	doors[choice - 1].set_is_selected(true);
 
 	// Open 1 door
 	monty_open_door(&mut doors);
@@ -137,16 +136,16 @@ fn simulation(contestants: &[Contestant], simulate_contestant: &usize) -> Box<[f
 			let mut doors: [Door; 3] = [Door::new(), Door::new(), Door::new()];
 
 			// put the prize in one door
-			doors[select_door(doors.len())].has_prize = true;
+			doors[select_door(doors.len())].set_has_prize(true);
 
 			// Let the user choose their door
-			doors[contestant.choice - 1].is_selected = true;
+			doors[contestant.get_choice() - 1].set_is_selected(true);
 
 			// Open 1 door
 			monty_open_door(&mut doors);
 
 			// Change door if contestant chooses to change
-			if contestant.changes_door {
+			if contestant.does_change_door() {
 				change_door(&mut doors);
 			}
 

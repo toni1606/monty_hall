@@ -18,11 +18,11 @@ impl Contestant {
 		}
 	}
 
-	pub fn get_choice(self) -> usize {
+	pub fn get_choice(&self) -> usize {
 		self.choice
 	}
 
-	pub fn does_change_door(self) -> bool {
+	pub fn does_change_door(&self) -> bool {
 		self.changes_door
 	}
 }

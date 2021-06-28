@@ -15,16 +15,20 @@ impl Door {
 		}
 	}
 
-	pub fn get_is_selected(self) -> bool {
+	pub fn get_is_selected(&self) -> bool {
 		self.is_selected
 	}
 
-	pub fn set_is_selected(&mut self, value: &bool) {
-		self.is_selected = *value;
+	pub fn set_is_selected(&mut self, value: bool) {
+		self.is_selected = value;
 	}
 	
-	pub fn get_has_prize(self) -> bool {
+	pub fn get_has_prize(&self) -> bool {
 		self.has_prize
+	}
+
+	pub fn set_has_prize(&mut self, value: bool) {
+		self.has_prize = value;
 	}
 	
 	pub fn is_open(&self) -> bool {
