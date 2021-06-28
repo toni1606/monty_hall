@@ -1,8 +1,8 @@
 use std::io;
 use rand::Rng;
 
-use monty_hall::game::door::Door;
-use monty_hall::game::contestant::Contestant;
+use monty_hall::data_structures::door::Door;
+use monty_hall::data_structures::contestant::Contestant;
 
 fn main() {
 	loop {
