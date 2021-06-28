@@ -1,56 +1,9 @@
 use std::io;
 use rand::Rng;
 
-enum State {
-	Closed,
-	Open
-}
-
-struct Door {
-	state: State,
-	has_prize: bool,
-	is_selected: bool
-}
-
-struct Contestant {
-	choice: usize,
-	changes_door: bool
-}
-
-impl Door {
-	fn new() -> Door {
-		Door {
-			state: State::Closed,
-			has_prize: false,
-			is_selected: false
-		}
-	}
-	fn is_open(&self) -> bool {
-		match self.state {
-			State::Open		=> true,
-			State::Closed	=> false
-		}
-	}
-	fn open(&mut self) {
-		self.state = State::Open;
-	}
-}
-
-impl Contestant {
-	fn new_alice() -> Contestant {
-		Contestant {
-			choice: 1,
-			changes_door: false
-		}
-	}
-
-	fn new_bob() -> Contestant {
-		Contestant {
-			choice: 1,
-			changes_door: true
-		}
-	}
-}
+use monty_hall::game::state::State;
+use monty_hall::game::door::Door;
+use monty_hall::game::contestant::Contestant;
 
 fn main() {
 	loop {
@@ -112,10 +65,10 @@ fn monty_open_door(doors: &mut [Door]) {
 
 fn change_door(doors: &mut [Door]) {
 	for door in doors {
-		if door.is_selected {
-			door.is_selected = false;
-		} else if !door.is_selected && !door.is_open() {
-			door.is_selected = true;
+		if door.get_is_selected() {
+			door.set_is_selected(false);
+		} else if !door.get_is_selected() && !door.is_open() {
+			door.set_is_selected(true);
 		}
 	}
 }
@@ -123,7 +76,7 @@ fn change_door(doors: &mut [Door]) {
 fn chek_if_won(doors: &mut [Door]) -> bool {
 	let mut out = false;
 	for door in doors {
-		if door.is_selected && door.has_prize {
+		if door.get_is_selected() && door.get_has_prize() {
 			out = true;
 		}
 	}
