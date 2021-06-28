@@ -1,4 +1,4 @@
-use crate::game::state::State;
+use crate::data_structures::state::State;
 
 pub struct Door {
 	state: State,

@@ -1,8 +1,9 @@
-use std::io;
+
 use rand::Rng;
 
 use monty_hall::data_structures::door::Door;
 use monty_hall::data_structures::contestant::Contestant;
+use monty_hall::game::user_data::*;
 
 fn main() {
 	loop {
@@ -25,26 +26,6 @@ fn main() {
 
 		println!("Invalid number entered! Retry...");
 	}
-}
-
-fn read_input(data: &mut usize) {
-	let mut raw_data = String::new();
-	io::stdin().read_line(&mut raw_data).expect("Error while reading from stdin!");
-
-	*data = raw_data.trim()
-				.parse()
-				.expect("Unable to parse inputed data!");
-}
-
-fn check_if_valid(data: &usize, range: &[usize]) -> bool {
-	let mut out: bool = false;
-
-	for element in range {
-		if *data == *element {
-			out = true;
-		}
-	}
-	out
 }
 
 fn select_door(max_index: usize) -> usize {
